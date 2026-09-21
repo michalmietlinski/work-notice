@@ -1,0 +1,514 @@
+:root {
+  --bg: #d8dee8;
+  --paper: #f6f4f0;
+  --ink: #1a2430;
+  --muted: #5c6774;
+  --line: #d5dbe3;
+  --stamp: #9b2335;
+  --stamp-soft: #f6e4e7;
+  --stamp-green: #1f6b45;
+  --warn: #9b2335;
+  --focus: #2a62a8;
+  --cal: #9b2335;
+  --cal-range: #f3d0d5;
+  --cal-booked: #e7edf4;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.45;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.generator-body {
+  background:
+    radial-gradient(900px 420px at 50% -8%, #f4f7fb 0%, transparent 70%),
+    var(--bg);
+  padding: 1.5rem 1rem 3rem;
+}
+
+.paper {
+  max-width: 44rem;
+  margin: 0 auto;
+  background: var(--paper);
+  border: 1px solid #c5ccd6;
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(26, 36, 48, 0.14);
+  padding: 1.4rem 1.45rem 1.7rem;
+}
+
+.paper-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.form-code {
+  margin: 0;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stamp-mini {
+  margin: 0;
+  border: 2px solid var(--stamp);
+  color: var(--stamp);
+  padding: 0.15rem 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  transform: rotate(6deg);
+  font-size: 0.7rem;
+  border-radius: 3px;
+}
+
+h1 {
+  margin: 0 0 0.3rem;
+  font-size: clamp(1.65rem, 4vw, 2.1rem);
+  letter-spacing: -0.03em;
+}
+
+.tagline,
+.hint,
+.footer-note {
+  color: var(--muted);
+}
+
+.tagline {
+  margin: 0 0 1.35rem;
+}
+
+.field,
+fieldset.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0 0 1.05rem;
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+fieldset.field legend {
+  padding: 0;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.field > span,
+.field.compact span {
+  font-weight: 650;
+  font-size: 0.92rem;
+}
+
+.field em {
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 0.35rem;
+}
+
+.grid.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.days label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.7rem;
+  min-height: 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.days input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.days label:has(input:checked) {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+input[type="text"],
+input[type="time"],
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.62rem 0.75rem;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 4.5rem;
+  word-break: break-all;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--focus) 45%, white);
+  outline-offset: 2px;
+}
+
+.calendar {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.85rem;
+}
+
+.cal-nav {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr 2.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+}
+
+.cal-title {
+  margin: 0;
+  text-align: center;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.cal-nav-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  cursor: pointer;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.cal-nav-btn:hover {
+  background: #fff;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.2rem;
+}
+
+.cal-weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  padding: 0.25rem 0 0.4rem;
+}
+
+.cal-day {
+  min-height: 2.55rem;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cal-day:hover {
+  background: var(--stamp-soft);
+}
+
+.cal-day.outside {
+  color: #9aa4b0;
+}
+
+.cal-day.today {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.cal-day.booked {
+  background: var(--cal-booked);
+}
+
+.cal-day.pending {
+  background: var(--cal-range);
+}
+
+.cal-day.start,
+.cal-day.end {
+  background: var(--cal);
+  color: #fff;
+}
+
+.pto-list {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.pto-chip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.55rem 0.7rem;
+}
+
+.btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #eef2f6;
+}
+
+.btn.primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #2b3848;
+}
+
+.btn.primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+.btn.compact {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.errors,
+.warn {
+  color: var(--warn);
+  font-weight: 700;
+}
+
+.errors {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+}
+
+.preview,
+.share {
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+.preview h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0.2rem 0;
+  padding: 0.18rem 0.6rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.badge.praise {
+  color: var(--stamp-green);
+}
+
+.badge.roast {
+  color: var(--stamp);
+}
+
+.preview-body {
+  margin: 0.4rem 0 0;
+  font-size: 1.02rem;
+}
+
+.share-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.footer-note {
+  margin: 1.4rem 0 0;
+  font-size: 0.9rem;
+}
+
+.check-body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: #1b140e;
+  color: #f3ead4;
+  font-family: "Times New Roman", Times, Georgia, serif;
+}
+
+.check-stage {
+  width: min(40rem, 100%);
+  text-align: center;
+}
+
+.checking-line {
+  margin: 0;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+}
+
+.checking-state .checking-line {
+  animation: pulse 1.1s ease-in-out infinite;
+}
+
+.stamp {
+  display: inline-block;
+  margin: 0 0 2.4rem;
+  border: 8px solid currentColor;
+  padding: 0.15em 0.35em;
+  font-family: Impact, "Arial Black", sans-serif;
+  font-size: clamp(2.4rem, 12vw, 5.4rem);
+  line-height: 0.95;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+
+.praise-state {
+  background: #143326;
+  color: #d8f3dc;
+}
+
+.roast-state {
+  background: #3b1010;
+  color: #ffd6d0;
+}
+
+.verdict-copy {
+  margin: 0 auto;
+  max-width: 36rem;
+  padding: 0 1rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  line-height: 1.45;
+}
+
+.verdict-meta {
+  margin: 1.25rem 0 0;
+  opacity: 0.7;
+  letter-spacing: 0.04em;
+  font-size: 0.9rem;
+}
+
+.error-state {
+  background: #2a241c;
+  color: #f3ead4;
+}
+
+.error-title {
+  margin: 0 0 1rem;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+}
+
+.back-link {
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .checking-state .checking-line,
+  .stamp {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stamp {
+    animation: slam 0.45s cubic-bezier(0.16, 1.4, 0.34, 1);
+  }
+}
+
+@keyframes slam {
+  from {
+    transform: rotate(-8deg) scale(1.8);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-8deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid.two {
+    grid-template-columns: 1fr;
+  }
+
+  .paper {
+    box-shadow: 0 10px 24px rgba(26, 36, 48, 0.12);
+    padding: 1.15rem;
+  }
+}

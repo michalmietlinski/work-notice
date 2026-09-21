@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Generate a joke link that roasts colleagues who open it after hours or on PTO." />
+    <title>Employee availability</title>
+    <link rel="stylesheet" href="./css/app.css?v=2" />
+  </head>
+  <body class="generator-body">
+    <main class="paper">
+      <header class="paper-head">
+        <p class="form-code" data-i18n="formCode">FORM HR-09</p>
+        <p class="stamp-mini" data-i18n="confidential">CONFIDENTIAL</p>
+      </header>
+      <h1 data-i18n="title">Employee availability</h1>
+      <p class="tagline" data-i18n="tagline">Internal use only. Unauthorized overtime will be commented on sarcastically.</p>
+
+      <form id="generator" novalidate>
+        <div class="grid two">
+          <label class="field">
+            <span data-i18n="language">Language</span>
+            <select id="lang" name="lang">
+              <option value="en">English</option>
+              <option value="pl">Polski</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>
+              <span data-i18n="name">Employee name</span>
+              <em data-i18n="nameOptional">optional</em>
+            </span>
+            <input id="name" name="name" type="text" maxlength="80" autocomplete="nickname" data-i18n-placeholder="namePlaceholder" placeholder="Karol" />
+          </label>
+        </div>
+
+        <label class="field">
+          <span data-i18n="timezone">Timezone</span>
+          <select id="tz" name="tz"></select>
+          <small id="tz-hint" class="hint"></small>
+        </label>
+
+        <fieldset class="field">
+          <legend data-i18n="workDays">Working days</legend>
+          <div class="days">
+            <label><input type="checkbox" name="day" value="1" checked /> <span data-i18n="day1">Mon</span></label>
+            <label><input type="checkbox" name="day" value="2" checked /> <span data-i18n="day2">Tue</span></label>
+            <label><input type="checkbox" name="day" value="3" checked /> <span data-i18n="day3">Wed</span></label>
+            <label><input type="checkbox" name="day" value="4" checked /> <span data-i18n="day4">Thu</span></label>
+            <label><input type="checkbox" name="day" value="5" checked /> <span data-i18n="day5">Fri</span></label>
+            <label><input type="checkbox" name="day" value="6" /> <span data-i18n="day6">Sat</span></label>
+            <label><input type="checkbox" name="day" value="7" /> <span data-i18n="day7">Sun</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field">
+          <legend data-i18n="hours">Working hours</legend>
+          <div class="grid two">
+            <label class="field compact">
+              <span data-i18n="hoursFrom">From</span>
+              <input id="start" name="start" type="time" required value="09:00" />
+            </label>
+            <label class="field compact">
+              <span data-i18n="hoursTo">To</span>
+              <input id="end" name="end" type="time" required value="17:00" />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="field pto-field">
+          <legend data-i18n="pto">Approved leave</legend>
+          <p id="pto-hint" class="hint" data-i18n="ptoHint">Click the first day, then the last day. One day: click it twice.</p>
+          <div id="pto-calendar" class="calendar"></div>
+          <ul id="pto-list" class="pto-list"></ul>
+        </fieldset>
+
+        <ul id="errors" class="errors" hidden></ul>
+
+        <section class="preview" aria-live="polite">
+          <h2 data-i18n="previewLabel">If they opened this right now</h2>
+          <p id="preview-now" class="hint"></p>
+          <p id="preview-badge" class="badge"></p>
+          <p id="preview-body" class="preview-body"></p>
+        </section>
+
+        <section class="share">
+          <label class="field">
+            <span data-i18n="linkLabel">Link to send</span>
+            <textarea id="link" rows="3" readonly></textarea>
+          </label>
+          <p id="url-warn" class="warn" hidden data-i18n="warnLongUrl"></p>
+          <div class="share-row">
+            <button id="copy" type="button" class="btn primary" data-i18n="copy">Copy link</button>
+            <span id="copy-status" class="hint" role="status"></span>
+          </div>
+        </section>
+      </form>
+
+      <p class="footer-note" data-i18n="footerJoke">Not HR. A joke. Do not send this to people who did not ask for the bit.</p>
+    </main>
+    <script src="./js/config.js"></script>
+    <script src="./js/i18n.js"></script>
+    <script src="./js/codec.js"></script>
+    <script src="./js/time.js"></script>
+    <script src="./js/zones.js"></script>
+    <script src="./js/calendar.js"></script>
+    <script src="./js/generator.js"></script>
+  </body>
+</html>
