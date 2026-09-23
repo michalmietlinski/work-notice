@@ -255,7 +255,7 @@ function refresh() {
     formatDisplayDate(iso, localeFor())
   );
 
-  const url = new URL("check.html", SITE_BASE);
+  const url = new URL("check.html", shareBase());
   url.search = "";
   url.hash = "";
   url.searchParams.set("p", encodePayload(payload));

@@ -411,9 +411,9 @@ button:focus-visible {
 
 .checking-line {
   margin: 0;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-size: 0.95rem;
+  font-size: clamp(1.05rem, 3vw, 1.55rem);
 }
 
 .checking-state .checking-line {
@@ -433,6 +433,14 @@ button:focus-visible {
   transform: rotate(-8deg);
 }
 
+.roast-name {
+  margin: 0 0 2.4rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: clamp(1.35rem, 4.2vw, 2.15rem);
+  font-weight: 800;
+  line-height: 1.2;
+}
+
 .praise-state {
   background: #143326;
   color: #d8f3dc;
@@ -441,6 +449,49 @@ button:focus-visible {
 .roast-state {
   background: #3b1010;
   color: #ffd6d0;
+}
+
+.roast-bubbles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.bubble {
+  position: absolute;
+  max-width: min(16rem, 42vw);
+  margin: 0;
+  background: #ffe8e4;
+  color: #3b1010;
+  border-radius: 1.25rem;
+  padding: 0.7rem 0.95rem;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 750;
+  font-size: clamp(0.88rem, 2.1vw, 1.08rem);
+  line-height: 1.25;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 0.7rem solid transparent;
+}
+
+.bubble.tail-down::after {
+  left: 1.4rem;
+  bottom: -1.2rem;
+  border-top-color: #ffe8e4;
+}
+
+.bubble.tail-up::after {
+  left: 50%;
+  top: -1.2rem;
+  margin-left: -0.7rem;
+  border-bottom-color: #ffe8e4;
 }
 
 .verdict-copy {
@@ -474,7 +525,8 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .checking-state .checking-line,
-  .stamp {
+  .stamp,
+  .bubble {
     animation: none;
   }
 }
@@ -482,6 +534,10 @@ button:focus-visible {
 @media (prefers-reduced-motion: no-preference) {
   .stamp {
     animation: slam 0.45s cubic-bezier(0.16, 1.4, 0.34, 1);
+  }
+
+  .bubble {
+    animation: pop 0.45s cubic-bezier(0.16, 1.4, 0.34, 1) both;
   }
 }
 
@@ -502,6 +558,17 @@ button:focus-visible {
   }
 }
 
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
 @media (max-width: 640px) {
   .grid.two {
     grid-template-columns: 1fr;
@@ -510,5 +577,10 @@ button:focus-visible {
   .paper {
     box-shadow: 0 10px 24px rgba(26, 36, 48, 0.12);
     padding: 1.15rem;
+  }
+
+  .bubble {
+    max-width: min(13rem, 72vw);
+    font-size: 0.86rem;
   }
 }

@@ -45,7 +45,7 @@ const STRINGS = {
     previewLabel: "If they opened this right now",
     previewNow: "It is {time} in {zone}.",
     previewPraise: "Praise",
-    previewRoast: "Roast",
+    previewRoast: "Slave",
     linkLabel: "Link to send",
     copy: "Copy link",
     copied: "Copied",
@@ -60,14 +60,14 @@ const STRINGS = {
     zoneGroupAmericas: "Americas",
     zoneGroupAsia: "Asia",
     zoneGroupOther: "Other",
-    checking: "Checking your timesheet…",
+    checking: "Checking if you still belong to the company…",
     passed: "You passed",
-    soulSold: "Soul sold",
-    praiseOnClock: "It's {time} in {zone}. Officially work. You may proceed, employee of the month.",
-    roastBefore: "It's {time}. The office is not open yet. Ambition is not a personality.",
-    roastAfter: "It's {time}. The office is closed. And yet here you are.",
-    roastOffDay: "It's {day}. The office is dark. Your soul, however, is still clocked in.",
-    roastPto: "Leave until {until}. You are off. You opened a work link anyway. Soul status: sold.",
+    soulSold: "Corporate slave",
+    praiseOnClock: "It's {time} in {zone}. Officially work. Lucky you: for once you opened this on the company's dime.",
+    roastBefore: "You opened it outside work hours. You shouldn't be working now, you slave of the corporate.",
+    roastAfter: "You opened it outside work hours. You shouldn't be working now, you slave of the corporate.",
+    roastOffDay: "It's {day}. Not a work day. You opened it anyway, you slave of the corporate.",
+    roastPto: "Leave until {until}. You are off. You still opened a work link, you slave of the corporate.",
     errBroken: "This link is broken. Ask whoever sent it to generate a new one.",
     errVersion: "This link needs a newer version of the page.",
     backToGenerator: "Generate a new link",
@@ -118,7 +118,7 @@ const STRINGS = {
     previewLabel: "Gdyby otworzyli to teraz",
     previewNow: "Jest {time} w strefie {zone}.",
     previewPraise: "Pochwała",
-    previewRoast: "Zjechanie",
+    previewRoast: "Niewolnik",
     linkLabel: "Link do wysłania",
     copy: "Kopiuj link",
     copied: "Skopiowano",
@@ -133,14 +133,14 @@ const STRINGS = {
     zoneGroupAmericas: "Ameryka",
     zoneGroupAsia: "Azja",
     zoneGroupOther: "Inne",
-    checking: "Sprawdzamy Twój grafik…",
+    checking: "Sprawdzamy, czy nadal należysz do firmy…",
     passed: "Zaliczone",
     soulSold: "Dusza sprzedana",
-    praiseOnClock: "Jest {time} w strefie {zone}. Oficjalne godziny pracy. Możesz kontynuować, pracowniku miesiąca.",
-    roastBefore: "Jest {time}. Biuro jeszcze śpi. Ambicja to nie osobowość.",
-    roastAfter: "Jest {time}. Biuro zamknięte. A Ty i tak tu jesteś.",
-    roastOffDay: "{day}. Biuro ciemne. Twoja dusza nadal na zmianie.",
-    roastPto: "Urlop do {until}. Wolne. Służbowy link i tak otwarty. Status duszy: sprzedana.",
+    praiseOnClock: "Jest {time} w strefie {zone}. Oficjalne godziny pracy. Przynajmniej tym razem otworzyłeś to na koszt firmy.",
+    roastBefore: "Otworzyłeś to poza godzinami pracy. Nie powinieneś teraz pracować, niewolniku korporacji.",
+    roastAfter: "Otworzyłeś to poza godzinami pracy. Nie powinieneś teraz pracować, niewolniku korporacji.",
+    roastOffDay: "{day}. To nie jest dzień pracy. A i tak otworzyłeś, niewolniku korporacji.",
+    roastPto: "Urlop do {until}. Jesteś wolny. I tak otworzyłeś służbowego linka, niewolniku korporacji.",
     errBroken: "Ten link jest popsuty. Poproś osobę, która go wysłała, o nowy.",
     errVersion: "Ten link wymaga nowszej wersji strony.",
     backToGenerator: "Wygeneruj nowy link",
@@ -201,7 +201,7 @@ function personalize(name, body) {
   return `${trimmed}. ${body}`;
 }
 
-function verdictMessage(payload, result, formatUntil) {
+function verdictMessage(payload, result, formatUntil, options = {}) {
   const vars = {
     time: result.time,
     zone: payload.tz.split("/").pop().replace(/_/g, " "),
@@ -215,5 +215,5 @@ function verdictMessage(payload, result, formatUntil) {
     "off-day": "roastOffDay",
     pto: "roastPto",
   };
-  return personalize(payload.n, t(keys[result.reason] || "errBroken", vars));
+  return personalize(options.skipName ? "" : payload.n, t(keys[result.reason] || "errBroken", vars));
 }
